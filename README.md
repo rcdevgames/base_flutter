@@ -17,7 +17,7 @@ or on vscode command(MacOS)/ctrl(windows or linux)+shift+p search 'flutter get p
 
 for specific organization you can rebuild with
 ```
-$ flutter create --org id.thinktive.project_name .
+$ flutter create --org net.rcdevgames .
 ```
 
 if you want to change this to your project
