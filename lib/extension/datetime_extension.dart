@@ -22,36 +22,29 @@
  * SOFTWARE.
  */
 
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'package:indonesia/indonesia.dart';
 
-import 'view/home.dart';
+extension DateTimeExtension on DateTime {
+  String _zero(num val) {
+    if (val < 10) {
+      return "0${val}";
+    }
+    return val.toString();
+  }
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  // runApp(MyApp());
-  runApp(
-    EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('id', 'ID')],
-        path: 'assets/translations', // <-- change patch to your
-        fallbackLocale: Locale('en', 'US'),
-        child: MyApp()),
-  );
-}
+  String format() {
+    try {
+      return "${tanggal(this)} ${_zero(this.hour)}:${_zero(this.minute)}";
+    } catch (e) {
+      return null;
+    }
+  }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'title'.tr(),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'title'.tr()),
-    );
+  String pure() {
+    try {
+      return "${this.year}-${_zero(this.month)}-${_zero(this.day)}";
+    } catch (e) {
+      return null;
+    }
   }
 }

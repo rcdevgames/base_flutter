@@ -22,36 +22,26 @@
  * SOFTWARE.
  */
 
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
-import 'view/home.dart';
+class NavigationService {
+  final GlobalKey<NavigatorState> navigatorKey =
+      new GlobalKey<NavigatorState>();
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  // runApp(MyApp());
-  runApp(
-    EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('id', 'ID')],
-        path: 'assets/translations', // <-- change patch to your
-        fallbackLocale: Locale('en', 'US'),
-        child: MyApp()),
-  );
+  Future<dynamic> navigateTo(String routeName, [Object arguments]) =>
+      navigatorKey.currentState.pushNamed(routeName, arguments: arguments);
+
+  Future<dynamic> navigateReplaceTo(String routeName, [Object arguments]) =>
+      navigatorKey.currentState.pushNamedAndRemoveUntil(
+          routeName, (Route<dynamic> route) => false,
+          arguments: arguments);
+
+  void navigatePopUntil([String routeName]) =>
+      navigatorKey.currentState.popUntil(routeName != null
+          ? (route) => route.isFirst
+          : ModalRoute.withName(routeName));
+
+  void navigatePop() => navigatorKey.currentState.pop();
 }
 
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'title'.tr(),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'title'.tr()),
-    );
-  }
-}
+final navService = new NavigationService();

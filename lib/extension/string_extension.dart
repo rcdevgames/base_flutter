@@ -22,36 +22,8 @@
  * SOFTWARE.
  */
 
-import 'package:easy_localization/easy_localization.dart';
-import 'package:flutter/material.dart';
-
-import 'view/home.dart';
-
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  // runApp(MyApp());
-  runApp(
-    EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('id', 'ID')],
-        path: 'assets/translations', // <-- change patch to your
-        fallbackLocale: Locale('en', 'US'),
-        child: MyApp()),
-  );
-}
-
-class MyApp extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'title'.tr(),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
-      home: MyHomePage(title: 'title'.tr()),
-    );
+extension StringExtension on String {
+  String capitalize() {
+    return "${this[0].toUpperCase()}${this.substring(1)}";
   }
 }

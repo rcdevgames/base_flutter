@@ -22,36 +22,23 @@
  * SOFTWARE.
  */
 
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import 'view/home.dart';
+class MyHomePage extends StatefulWidget {
+  String title;
+  MyHomePage({this.title});
 
-void main() {
-  WidgetsFlutterBinding.ensureInitialized();
-  // runApp(MyApp());
-  runApp(
-    EasyLocalization(
-        supportedLocales: [Locale('en', 'US'), Locale('id', 'ID')],
-        path: 'assets/translations', // <-- change patch to your
-        fallbackLocale: Locale('en', 'US'),
-        child: MyApp()),
-  );
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
 }
 
-class MyApp extends StatelessWidget {
+class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'title'.tr(),
-      localizationsDelegates: context.localizationDelegates,
-      supportedLocales: context.supportedLocales,
-      locale: context.locale,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(""),
       ),
-      home: MyHomePage(title: 'title'.tr()),
     );
   }
 }
